@@ -38,10 +38,11 @@ def simplify(pts,tol=2):
     return [pts[i] for i in sorted(keep)]
 
 class Roads(osmium.SimpleHandler):
-    def __init__(self,bbox):super().__init__();self.cells={};self.bbox=[round(x*1e6) for x in bbox];self.ways=0;self.points=0
+    def __init__(self,bbox):super().__init__();self.cells={};self.bbox=[round(x*1e6) for x in bbox];self.ways=0;self.points=0;self.seen=set();self.duplicates=0
     def way(self,w):
         kind=w.tags.get('highway');
         if kind not in KINDS:return
+        if w.id in self.seen:self.duplicates+=1;return
         pts=[(round(n.lon*1e6),round(n.lat*1e6)) for n in w.nodes if n.location.valid()]
         if len(pts)<2:return
         pts=simplify(pts);t=w.tags;one={'yes':1,'1':1,'-1':-1}.get(t.get('oneway'),0)
@@ -61,12 +62,13 @@ class Roads(osmium.SimpleHandler):
                     key=str(x)+','+str(y);lines=fragments.setdefault(key,[])
                     if lines and lines[-1][-2:]==list(c[0]):lines[-1].extend(c[1])
                     else:lines.append(list(c[0])+list(c[1]))
-        if fragments:self.ways+=1
+        if fragments:self.ways+=1;self.seen.add(w.id)
         for key,lines in fragments.items():
             for line in lines:self.cells.setdefault(key,[]).append(meta+[line]);self.points+=len(line)//2
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('pbf',type=Path);ap.add_argument('--out',type=Path,required=True);ap.add_argument('--bbox')
+    ap.add_argument('--extra-pbf',type=Path,action='append',default=[])
     ap.add_argument('--id',default='moscow');ap.add_argument('--name');ap.add_argument('--coverage');ap.add_argument('--source');ap.add_argument('--source-url');args=ap.parse_args()
     defaults={'bbox':'37.32,55.57,37.88,55.92','name':'Москва','coverage':'Основная часть города; без Новой Москвы и области','source':'OpenStreetMap / BBBike Moscow','source_url':'https://download.bbbike.org/osm/bbbike/Moscow/'}
     for key,value in defaults.items():
@@ -79,18 +81,25 @@ def main():
     catalog_file=args.out/'catalog.json'
     catalog=json.loads(catalog_file.read_text(encoding='utf-8')) if catalog_file.exists() else {'schema':1,'cities':[]}
     if catalog.get('schema')!=1 or not isinstance(catalog.get('cities'),list):ap.error('Invalid existing catalog')
-    start=time.monotonic();h=Roads(bbox);h.apply_file(str(args.pbf),locations=True,idx='flex_mem')
+    start=time.monotonic();h=Roads(bbox)
+    for pbf in [args.pbf]+args.extra_pbf:h.apply_file(str(pbf),locations=True,idx='flex_mem')
     if not h.cells:raise ValueError('No roads in selected area')
     rawsource=hashlib.file_digest(args.pbf.open('rb'),'sha256').hexdigest();stamp=datetime.now(timezone.utc).isoformat();revision=int(time.time())
     blocks=[];index={};offset=0
     for key,roads in sorted(h.cells.items()):
         raw=encode(roads);chunk=gzip.compress(raw,compresslevel=9,mtime=0);index[key]=[offset,len(chunk),len(raw),len(roads)];blocks.append(chunk);offset+=len(chunk)
     header={'schema':1,'id':args.id,'name':args.name,'coverage':args.coverage,'bbox':bbox,'revision':revision,'createdAt':stamp,'source':args.source,'sourceUrl':args.source_url,'sourceSha256':rawsource,'license':'ODbL-1.0','attribution':'© OpenStreetMap contributors','cellMicrodegrees':STEP,'ways':h.ways,'points':h.points,'cells':index}
-    headerbytes=encode(header);package=b'SCROAD01'+struct.pack('<I',len(headerbytes))+headerbytes+b''.join(blocks);digest=hashlib.sha256(package).hexdigest();name=args.id+'-'+digest[:16]+'.scroads'
+    if args.extra_pbf:header['sourceFiles']=[{'file':p.name,'sha256':hashlib.file_digest(p.open('rb'),'sha256').hexdigest()} for p in [args.pbf]+args.extra_pbf]
+    headerbytes=encode(header)
+    if len(headerbytes)>2*1024*1024 or len(index)>50000:raise ValueError('Road index exceeds supported reader limits')
+    if any(v[1]>1024*1024 or v[2]>1024*1024 or v[3]>16000 for v in index.values()):raise ValueError('Road cell exceeds supported reader limits')
+    package=b'SCROAD01'+struct.pack('<I',len(headerbytes))+headerbytes+b''.join(blocks)
+    if len(package)>64*1024*1024:raise ValueError('Road package exceeds download limit')
+    digest=hashlib.sha256(package).hexdigest();name=args.id+'-'+digest[:16]+'.scroads'
     args.out.mkdir(parents=True,exist_ok=True);(args.out/name).write_bytes(package)
     entry={k:header[k] for k in ('id','name','coverage','bbox','revision','createdAt','attribution','license')};entry.update(bytes=len(package),sha256=digest,file=name,url='https://raw.githubusercontent.com/skalitov-bit/speedcam-db/main/maps/'+name)
     catalog['cities']=[c for c in catalog['cities'] if c['id']!=args.id]+[entry]
     temp=catalog_file.with_suffix('.json.tmp');temp.write_bytes(encode(catalog));os.replace(temp,catalog_file)
-    (args.out/'build-report.json').write_bytes(encode({'inputBytes':args.pbf.stat().st_size,'packageBytes':len(package),'headerBytes':len(headerbytes),'payloadBytes':offset,'ways':h.ways,'points':h.points,'cells':len(index),'maxCellRawBytes':max(v[2] for v in index.values()),'seconds':time.monotonic()-start,'sha256':digest,'sourceSha256':rawsource,'bbox':bbox}))
+    (args.out/'build-report.json').write_bytes(encode({'inputBytes':sum(p.stat().st_size for p in [args.pbf]+args.extra_pbf),'packageBytes':len(package),'headerBytes':len(headerbytes),'payloadBytes':offset,'ways':h.ways,'duplicateWaysSkipped':h.duplicates,'points':h.points,'cells':len(index),'maxCellRawBytes':max(v[2] for v in index.values()),'seconds':time.monotonic()-start,'sha256':digest,'sourceSha256':rawsource,'bbox':bbox}))
     print((args.out/'build-report.json').read_text(),flush=True)
 if __name__=='__main__':main()
