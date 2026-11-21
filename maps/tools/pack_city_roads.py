@@ -2,7 +2,7 @@
 SCROAD01 | u32 JSON header bytes | header | individually gzipped 0.01-degree cells.
 Coordinates are integer microdegrees. Cell offsets are relative to payload start.
 """
-import argparse, gzip, hashlib, json, math, struct, time
+import argparse, gzip, hashlib, json, math, struct, time, re, os
 from pathlib import Path
 from datetime import datetime, timezone
 import osmium
@@ -66,17 +66,31 @@ class Roads(osmium.SimpleHandler):
             for line in lines:self.cells.setdefault(key,[]).append(meta+[line]);self.points+=len(line)//2
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument('pbf',type=Path);ap.add_argument('--out',type=Path,required=True);ap.add_argument('--bbox',default='37.32,55.57,37.88,55.92');args=ap.parse_args()
-    bbox=list(map(float,args.bbox.split(',')));start=time.monotonic();h=Roads(bbox);h.apply_file(str(args.pbf),locations=True,idx='flex_mem')
+    ap=argparse.ArgumentParser();ap.add_argument('pbf',type=Path);ap.add_argument('--out',type=Path,required=True);ap.add_argument('--bbox')
+    ap.add_argument('--id',default='moscow');ap.add_argument('--name');ap.add_argument('--coverage');ap.add_argument('--source');ap.add_argument('--source-url');args=ap.parse_args()
+    defaults={'bbox':'37.32,55.57,37.88,55.92','name':'Москва','coverage':'Основная часть города; без Новой Москвы и области','source':'OpenStreetMap / BBBike Moscow','source_url':'https://download.bbbike.org/osm/bbbike/Moscow/'}
+    for key,value in defaults.items():
+        if getattr(args,key) is None:
+            if args.id!='moscow':ap.error('--'+key.replace('_','-')+' is required for a new city')
+            setattr(args,key,value)
+    if not re.fullmatch('[a-z0-9-]{2,40}',args.id) or len(args.name)>60 or len(args.coverage)>160:ap.error('Invalid city metadata')
+    bbox=list(map(float,args.bbox.split(',')))
+    if len(bbox)!=4 or not all(math.isfinite(v) and abs(v)<=(90 if i%2 else 180) for i,v in enumerate(bbox)) or bbox[0]>=bbox[2] or bbox[1]>=bbox[3]:ap.error('Invalid bounding box')
+    catalog_file=args.out/'catalog.json'
+    catalog=json.loads(catalog_file.read_text(encoding='utf-8')) if catalog_file.exists() else {'schema':1,'cities':[]}
+    if catalog.get('schema')!=1 or not isinstance(catalog.get('cities'),list):ap.error('Invalid existing catalog')
+    start=time.monotonic();h=Roads(bbox);h.apply_file(str(args.pbf),locations=True,idx='flex_mem')
+    if not h.cells:raise ValueError('No roads in selected area')
     rawsource=hashlib.file_digest(args.pbf.open('rb'),'sha256').hexdigest();stamp=datetime.now(timezone.utc).isoformat();revision=int(time.time())
     blocks=[];index={};offset=0
     for key,roads in sorted(h.cells.items()):
         raw=encode(roads);chunk=gzip.compress(raw,compresslevel=9,mtime=0);index[key]=[offset,len(chunk),len(raw),len(roads)];blocks.append(chunk);offset+=len(chunk)
-    header={'schema':1,'id':'moscow','name':'Москва','coverage':'Основная часть города; без Новой Москвы и области','bbox':bbox,'revision':revision,'createdAt':stamp,'source':'OpenStreetMap / BBBike Moscow','sourceUrl':'https://download.bbbike.org/osm/bbbike/Moscow/','sourceSha256':rawsource,'license':'ODbL-1.0','attribution':'© OpenStreetMap contributors','cellMicrodegrees':STEP,'ways':h.ways,'points':h.points,'cells':index}
-    headerbytes=encode(header);package=b'SCROAD01'+struct.pack('<I',len(headerbytes))+headerbytes+b''.join(blocks);digest=hashlib.sha256(package).hexdigest();name='moscow-'+digest[:16]+'.scroads'
+    header={'schema':1,'id':args.id,'name':args.name,'coverage':args.coverage,'bbox':bbox,'revision':revision,'createdAt':stamp,'source':args.source,'sourceUrl':args.source_url,'sourceSha256':rawsource,'license':'ODbL-1.0','attribution':'© OpenStreetMap contributors','cellMicrodegrees':STEP,'ways':h.ways,'points':h.points,'cells':index}
+    headerbytes=encode(header);package=b'SCROAD01'+struct.pack('<I',len(headerbytes))+headerbytes+b''.join(blocks);digest=hashlib.sha256(package).hexdigest();name=args.id+'-'+digest[:16]+'.scroads'
     args.out.mkdir(parents=True,exist_ok=True);(args.out/name).write_bytes(package)
     entry={k:header[k] for k in ('id','name','coverage','bbox','revision','createdAt','attribution','license')};entry.update(bytes=len(package),sha256=digest,file=name,url='https://raw.githubusercontent.com/skalitov-bit/speedcam-db/main/maps/'+name)
-    (args.out/'catalog.json').write_bytes(encode({'schema':1,'cities':[entry]}))
+    catalog['cities']=[c for c in catalog['cities'] if c['id']!=args.id]+[entry]
+    temp=catalog_file.with_suffix('.json.tmp');temp.write_bytes(encode(catalog));os.replace(temp,catalog_file)
     (args.out/'build-report.json').write_bytes(encode({'inputBytes':args.pbf.stat().st_size,'packageBytes':len(package),'headerBytes':len(headerbytes),'payloadBytes':offset,'ways':h.ways,'points':h.points,'cells':len(index),'maxCellRawBytes':max(v[2] for v in index.values()),'seconds':time.monotonic()-start,'sha256':digest,'sourceSha256':rawsource,'bbox':bbox}))
     print((args.out/'build-report.json').read_text(),flush=True)
 if __name__=='__main__':main()
