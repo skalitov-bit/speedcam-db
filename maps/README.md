@@ -63,3 +63,11 @@ python tools/pack_city_roads.py tver_oblast.osm.pbf --out . --id tver-oblast --n
 ```sh
 python tools/pack_city_roads.py novgorod_oblast.osm.pbf --out . --id novgorod-oblast --name "Новгородская область" --coverage "Новгородская область целиком, включая Великий Новгород, Боровичи, Старую Руссу и Валдай" --bbox "28.16793,56.793239,39.785638,60.088924" --source "OpenStreetMap / OpenStreetMap France administrative extract" --source-url "https://download.openstreetmap.fr/extracts/russia/northwestern_federal_district/novgorod_oblast.osm.pbf"
 ```
+
+## Республика Марий Эл
+
+Отдельная карта всей Республики Марий Эл: 2 329 022 байта (2,22 MiB), 31 248 дорожных линий OSM, 10 489 индексированных ячеек. Проверены Йошкар-Ола, Волжск, Козьмодемьянск, Звенигово, Сернур, Морки, Юрино, Параньга, Куженер, Новый Торъял, Медведево, Оршанка и Килемары.
+
+[Исходная выгрузка OSM France](https://download.openstreetmap.fr/extracts/russia/volga_federal_district/mari_el_republic.osm.pbf): данные на 23 ноября 2026, 00:02:28 UTC. © OpenStreetMap contributors, ODbL 1.0. На границах сохранены продолжения дорог из административной выгрузки; прямоугольник каталога описывает охват файла, а не административную границу.
+
+В SpeedCAM откройте настройки карт, обновите список, выберите «Республика Марий Эл» и скачайте карту. Карта подключается автоматически по координатам. Проверены скачивание, установка, повторное открытие и удаление в коде SpeedCAM 0.9.95; база камер хранится отдельно.
