@@ -144,3 +144,13 @@ SHA-256: `20b5fdd7cdf705d099231f5c47e2cc13b19f7a16953ba84a85896f4100a5fe80`.
 Проверены все сжатые блоки, контрольные суммы, установка и удаление всех 16 пакетов, дороги в столицах земель и автоматический выбор между Берлином и Бранденбургом. Проверки выполнены кодом приложения под Node.js 8; проверка на реальном MGU не проводилась. Пограничные ячейки включены в обе соседние земли, чтобы при переключении не возникал разрыв. Прямоугольник охвата не является административной границей.
 
 Данные © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL 1.0. [Исходная дорожная выгрузка OSM France](https://download.openstreetmap.fr/extracts/europe/germany.osm.pbf), [границы выгрузок земель Geofabrik](https://download.geofabrik.de/europe/germany.html).
+
+## Пермский край / Perm Krai
+
+Полная дорожная карта Пермского края: **9,689,180 байт (9.24 МиБ)**, 133,823 дорожных линий OSM, 43,756 индексированных ячеек. Пермь, Березники, Соликамск, Кунгур, Чайковский, Кудымкар и другие населённые пункты края.
+
+Исходные данные на **2026-11-25T00:00:35Z**. [Выгрузка OSM France](https://download.openstreetmap.fr/extracts/russia/volga_federal_district/perm_krai.osm.pbf). © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL 1.0. Прямоугольник охвата описывает дорожные данные файла, включая продолжения дорог на границах, а не административную границу.
+
+Проверены все сжатые блоки, SHA-256, дороги в 15 населённых пунктах, загрузка, повторное открытие и удаление кодом SpeedCAM 0.9.101 под Node.js 8. Проверка на физическом MGU не проводилась. В приложении: настройки карт → обновить список → Россия → Пермский край → скачать. Карта подключается автоматически по координатам. База камер хранится отдельно. Обновление приложения не требуется.
+
+Perm Krai is available under Russia after refreshing the map list. The road package is compatible with SpeedCAM 0.9.101; no application update is needed. Camera data remains separate.
