@@ -164,3 +164,13 @@ Perm Krai is available under Russia after refreshing the map list. The road pack
 Проверены все сжатые блоки, SHA-256, дороги в проверенных городах области, загрузка, повторное открытие и удаление кодом SpeedCAM 0.9.103 под Node.js 8. Проверка на физическом MGU не проводилась. В приложении: настройки карт → обновить список → Россия → Смоленская область → скачать. Карта подключается автоматически по координатам. База камер хранится отдельно. Обновление приложения не требуется.
 
 Smolensk Oblast is available under Russia after refreshing the map list. The road package is compatible with SpeedCAM 0.9.103; no application update is needed. Camera data remains separate.
+
+## Краснодарский край / Krasnodar Krai
+
+Дорожная карта всего Краснодарского края: **11,093,973 байт (10.58 МиБ)**, 204,826 дорожных линий OSM, 32,929 индексированных ячеек. Краснодар, Сочи, Новороссийск, Анапа, Геленджик, Армавир, Ейск и другие населённые пункты края.
+
+Исходные данные на **2026-11-25T00:07:48Z**. [Выгрузка OSM France](https://download.openstreetmap.fr/extracts/russia/southern_federal_district/krasnodar_krai.osm.pbf). © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL 1.0. Прямоугольник охвата описывает дорожные данные файла, включая продолжения дорог на границах, а не административную границу.
+
+Проверены все сжатые блоки, SHA-256, дороги в проверенных городах и населённых пунктах края, загрузка, повторное открытие и удаление кодом SpeedCAM 0.9.103 под Node.js 8. Проверка на физическом MGU не проводилась. В приложении: настройки карт → обновить список → Россия → Краснодарский край → скачать. Карта подключается автоматически по координатам. База камер хранится отдельно. Обновление приложения не требуется.
+
+Krasnodar Krai is available under Russia after refreshing the map list. The road package is compatible with SpeedCAM 0.9.103; no application update is needed. Camera data remains separate.
