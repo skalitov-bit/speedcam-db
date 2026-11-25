@@ -154,3 +154,13 @@ SHA-256: `20b5fdd7cdf705d099231f5c47e2cc13b19f7a16953ba84a85896f4100a5fe80`.
 Проверены все сжатые блоки, SHA-256, дороги в 15 населённых пунктах, загрузка, повторное открытие и удаление кодом SpeedCAM 0.9.101 под Node.js 8. Проверка на физическом MGU не проводилась. В приложении: настройки карт → обновить список → Россия → Пермский край → скачать. Карта подключается автоматически по координатам. База камер хранится отдельно. Обновление приложения не требуется.
 
 Perm Krai is available under Russia after refreshing the map list. The road package is compatible with SpeedCAM 0.9.101; no application update is needed. Camera data remains separate.
+
+## Смоленская область / Smolensk Oblast
+
+Дорожная карта всей Смоленской области: **4,933,132 байт (4.70 МиБ)**, 48,622 дорожных линий OSM, 24,842 индексированных ячеек. Смоленск, Вязьма, Рославль, Ярцево, Сафоново, Гагарин и другие населённые пункты области.
+
+Исходные данные на **2026-11-25T00:06:47Z**. [Выгрузка OSM France](https://download.openstreetmap.fr/extracts/russia/central_federal_district/smolensk_oblast.osm.pbf). © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL 1.0. Прямоугольник охвата описывает дорожные данные файла, включая продолжения дорог на границах, а не административную границу.
+
+Проверены все сжатые блоки, SHA-256, дороги в проверенных городах области, загрузка, повторное открытие и удаление кодом SpeedCAM 0.9.103 под Node.js 8. Проверка на физическом MGU не проводилась. В приложении: настройки карт → обновить список → Россия → Смоленская область → скачать. Карта подключается автоматически по координатам. База камер хранится отдельно. Обновление приложения не требуется.
+
+Smolensk Oblast is available under Russia after refreshing the map list. The road package is compatible with SpeedCAM 0.9.103; no application update is needed. Camera data remains separate.
