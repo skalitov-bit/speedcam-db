@@ -174,3 +174,15 @@ Smolensk Oblast is available under Russia after refreshing the map list. The roa
 Проверены все сжатые блоки, SHA-256, дороги в проверенных городах и населённых пунктах края, загрузка, повторное открытие и удаление кодом SpeedCAM 0.9.103 под Node.js 8. Проверка на физическом MGU не проводилась. В приложении: настройки карт → обновить список → Россия → Краснодарский край → скачать. Карта подключается автоматически по координатам. База камер хранится отдельно. Обновление приложения не требуется.
 
 Krasnodar Krai is available under Russia after refreshing the map list. The road package is compatible with SpeedCAM 0.9.103; no application update is needed. Camera data remains separate.
+
+## Архангельская и Вологодская области / Arkhangelsk and Vologda Oblasts
+
+**Архангельская область / Arkhangelsk Oblast: 7,100,431 байт (6.77 МиБ)**, 61,492 дорожных линий OSM, 42,224 индексированных ячеек. Архангельская область: Архангельск, Северодвинск, Котлас, Вельск, Онега, Каргополь и дороги региона. Исходные данные на **2026-11-23T00:02:28Z**: [OSM France](https://download.openstreetmap.fr/extracts/russia/northwestern_federal_district/arkhangelsk_oblast.osm.pbf).
+
+**Вологодская область / Vologda Oblast: 7,060,014 байт (6.73 МиБ)**, 68,351 дорожных линий OSM, 40,822 индексированных ячеек. Вся Вологодская область: Вологда, Череповец, Великий Устюг, Тотьма, Кириллов, Вытегра и дороги региона. Исходные данные на **2026-11-25T00:02:33Z**: [OSM France](https://download.openstreetmap.fr/extracts/russia/northwestern_federal_district/vologda_oblast.osm.pbf).
+
+© [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL 1.0. Охват описывает дорожные данные выгрузки, включая продолжения дорог у границ. Ненецкий автономный округ не включён в отдельную выгрузку Архангельской области.
+
+Проверены все сжатые блоки, размеры, SHA-256, дороги в контрольных населённых пунктах, установка, повторное открытие и удаление кодом SpeedCAM 0.9.104 под Node.js 8. Проверка на физическом MGU не проводилась. В приложении: настройки карт → обновить список → Россия → выбрать область → скачать. Порядок — по расстоянию от Москвы. Карта подключается автоматически по координатам; база камер хранится отдельно. Обновление приложения не требуется.
+
+Refresh the map list, open Russia and download the required oblast. Both maps work with SpeedCAM 0.9.104 without an application update. Camera data remains separate.
