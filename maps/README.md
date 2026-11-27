@@ -206,3 +206,13 @@ Khabarovsk Krai is available under Russia after refreshing the map list. Downloa
 В приложении: настройки карт → обновить список → Россия → Приморский край → скачать. Порядок регионов России определяется расстоянием от Москвы. Карта дорожной сети хранится отдельно от базы камер и подключается автоматически по координатам; обновление приложения не требуется.
 
 Primorsky Krai is available under Russia after refreshing the map list. Download it from Settings → Maps → Russia. The road package is separate from camera data; no application update is required.
+
+## Амурская область / Amur Oblast
+
+Дорожная карта всей Амурской области: **5,112,960 байт (4.88 МиБ)**, 31,668 дорожных линий OSM, 28,792 индексированных ячеек. Благовещенск, Белогорск, Свободный, Тында, Зея и другие населённые пункты области.
+
+Исходные данные на **2026-11-23T00:06:39Z** из [региональной выгрузки](https://download.openstreetmap.fr/extracts/russia/far_eastern_federal_district/amur_oblast.osm.pbf). © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL 1.0.
+
+В приложении: настройки карт → обновить список → Россия → Амурская область → скачать. Порядок регионов России определяется расстоянием от Москвы. Карта дорожной сети хранится отдельно от базы камер и подключается автоматически по координатам; обновление приложения не требуется.
+
+Amur Oblast is available under Russia after refreshing the map list. Download it from Settings → Maps → Russia. The road package is separate from camera data; no application update is required.
