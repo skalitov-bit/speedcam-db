@@ -186,3 +186,13 @@ Krasnodar Krai is available under Russia after refreshing the map list. The road
 Проверены все сжатые блоки, размеры, SHA-256, дороги в контрольных населённых пунктах, установка, повторное открытие и удаление кодом SpeedCAM 0.9.104 под Node.js 8. Проверка на физическом MGU не проводилась. В приложении: настройки карт → обновить список → Россия → выбрать область → скачать. Порядок — по расстоянию от Москвы. Карта подключается автоматически по координатам; база камер хранится отдельно. Обновление приложения не требуется.
 
 Refresh the map list, open Russia and download the required oblast. Both maps work with SpeedCAM 0.9.104 without an application update. Camera data remains separate.
+
+## Хабаровский край / Khabarovsk Krai
+
+Дорожная карта всего Хабаровского края: **5,342,714 байт (5.10 МиБ)**, 55,289 дорожных линий OSM, 26,959 индексированных ячеек. Хабаровск, Комсомольск-на-Амуре, Амурск, Николаевск-на-Амуре, Ванино и другие населённые пункты края.
+
+Исходные данные на **2026-11-27T00:05:59Z** из [региональной выгрузки](https://download.openstreetmap.fr/extracts/russia/far_eastern_federal_district/khabarovsk_krai.osm.pbf). © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL 1.0.
+
+В приложении: настройки карт → обновить список → Россия → Хабаровский край → скачать. Порядок регионов России определяется расстоянием от Москвы. Карта дорожной сети хранится отдельно от базы камер и подключается автоматически по координатам; обновление приложения не требуется.
+
+Khabarovsk Krai is available under Russia after refreshing the map list. Download it from Settings → Maps → Russia. The road package is separate from camera data; no application update is required.
