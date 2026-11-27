@@ -196,3 +196,13 @@ Refresh the map list, open Russia and download the required oblast. Both maps wo
 В приложении: настройки карт → обновить список → Россия → Хабаровский край → скачать. Порядок регионов России определяется расстоянием от Москвы. Карта дорожной сети хранится отдельно от базы камер и подключается автоматически по координатам; обновление приложения не требуется.
 
 Khabarovsk Krai is available under Russia after refreshing the map list. Download it from Settings → Maps → Russia. The road package is separate from camera data; no application update is required.
+
+## Приморский край / Primorsky Krai
+
+Дорожная карта всего Приморского края: **6,918,958 байт (6.60 МиБ)**, 125,105 дорожных линий OSM, 21,494 индексированных ячеек. Владивосток, Уссурийск, Находка, Артём и другие населённые пункты края.
+
+Исходные данные на **2026-11-27T00:05:59Z** из [региональной выгрузки](https://download.openstreetmap.fr/extracts/russia/far_eastern_federal_district/primorsky_krai.osm.pbf). © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL 1.0.
+
+В приложении: настройки карт → обновить список → Россия → Приморский край → скачать. Порядок регионов России определяется расстоянием от Москвы. Карта дорожной сети хранится отдельно от базы камер и подключается автоматически по координатам; обновление приложения не требуется.
+
+Primorsky Krai is available under Russia after refreshing the map list. Download it from Settings → Maps → Russia. The road package is separate from camera data; no application update is required.
