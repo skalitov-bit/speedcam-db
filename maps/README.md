@@ -216,3 +216,13 @@ Primorsky Krai is available under Russia after refreshing the map list. Download
 В приложении: настройки карт → обновить список → Россия → Амурская область → скачать. Порядок регионов России определяется расстоянием от Москвы. Карта дорожной сети хранится отдельно от базы камер и подключается автоматически по координатам; обновление приложения не требуется.
 
 Amur Oblast is available under Russia after refreshing the map list. Download it from Settings → Maps → Russia. The road package is separate from camera data; no application update is required.
+
+## Еврейская автономная область / Jewish Autonomous Oblast
+
+Дорожная карта всей Еврейской автономной области: **811,925 байт (0.77 МиБ)**, 7,153 дорожных линий OSM, 4,192 индексированных ячеек. Биробиджан, Облучье, Смидович, Амурзет, Ленинское и другие населённые пункты области.
+
+Исходные данные на **2026-11-23T00:06:39Z** из [региональной выгрузки](https://download.openstreetmap.fr/extracts/russia/far_eastern_federal_district/jewish_autonomous_oblast.osm.pbf). © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL 1.0.
+
+В приложении: настройки карт → обновить список → Россия → Еврейская автономная область → скачать. Порядок регионов России определяется расстоянием от Москвы. Карта дорожной сети хранится отдельно от базы камер и подключается автоматически по координатам; обновление приложения не требуется.
+
+Jewish Autonomous Oblast is available under Russia after refreshing the map list. Download it from Settings → Maps → Russia. The road package is separate from camera data; no application update is required.
